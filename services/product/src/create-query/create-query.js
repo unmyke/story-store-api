@@ -3,13 +3,20 @@ import { errors } from '@lib/errors';
 export const createQuery = ({ db }) => {
   const products = db.select('products');
 
+  const getProduct = async (productId) => {
+    const product = products.find(({ id }) => productId === id);
+    if (!product)
+      throw new errors.NotFound(`Product with id=${productId} not found`);
+    return product;
+  };
+
   const getProducts = async (filter) => {
     const { isEmptyFilter, isMatchToFilter } = createFilterHelpers(filter);
     if (isEmptyFilter()) return products;
     return products.filter(isMatchToFilter);
   };
 
-  return { getProducts };
+  return { getProduct, getProducts };
 };
 
 const createFilterHelpers = (filter = {}) => {
