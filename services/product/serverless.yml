@@ -19,6 +19,13 @@ custom:
     packager: 'yarn'
 
 functions:
+  product:
+    handler: src/index.getProductById
+    events:
+      - httpApi:
+          path: /${self:provider.stage}/products/{id}
+          method: get
+
   products:
     handler: src/index.getProductList
     events:
