@@ -13,13 +13,23 @@
     "services/*"
   ],
   "scripts": {
-    "format": "prettier -w ."
+    "format": "prettier -w .",
+    "lint": "eslint --fix ."
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/eslint-plugin": "^7.19.1",
+    "@babel/preset-env": "^7.19.3",
+    "babel-loader": "^8.2.5",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.1.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1"
   }
 }
