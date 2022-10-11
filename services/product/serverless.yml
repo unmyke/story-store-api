@@ -1,0 +1,19 @@
+service: product
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: eu-west-1
+  profile: serverless
+  stage: ${opt:stage, 'dev'}
+  httpApi:
+    cors: true
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    packager: 'yarn'
