@@ -8,6 +8,9 @@
     "node": "16.17.0"
   },
   "scripts": {},
+  "dependencies": {
+    "@lib/errors": "0.1.0"
+  },
   "devDependencies": {
     "@lib/create-webpack-config": "0.1.0"
   }
