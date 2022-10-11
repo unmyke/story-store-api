@@ -17,3 +17,11 @@ plugins:
 custom:
   webpack:
     packager: 'yarn'
+
+functions:
+  products:
+    handler: src/index.getProductList
+    events:
+      - httpApi:
+          path: /${self:provider.stage}/products
+          method: get
