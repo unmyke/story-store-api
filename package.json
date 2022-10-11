@@ -11,5 +11,11 @@
   "workspaces": [
     "lib/*",
     "services/*"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
 }
