@@ -1,0 +1,13 @@
+{
+  "name": "@lib/create-webpack-config",
+  "description": "Webpack configuration",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "create-webpack.config.js",
+  "engines": {
+    "node": "16.17.0"
+  },
+  "dependencies": {
+    "serverless-webpack": "^5.3.1"
+  }
+}
