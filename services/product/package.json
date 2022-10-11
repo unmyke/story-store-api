@@ -9,7 +9,9 @@
   },
   "scripts": {},
   "dependencies": {
-    "@lib/errors": "0.1.0"
+    "@lib/create-gateway-handlers": "0.1.0",
+    "@lib/errors": "0.1.0",
+    "@lib/mock-db": "0.1.0"
   },
   "devDependencies": {
     "@lib/create-webpack-config": "0.1.0"
