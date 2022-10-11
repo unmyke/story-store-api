@@ -1,0 +1,15 @@
+{
+  "name": "story-store-api",
+  "description": "API for story-store web client",
+  "repository": "https://github.com/unmyke/story-store-api.git",
+  "author": "Mikhail Unenov <mikhail_unenov@epam.com>",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "16.17.0"
+  },
+  "workspaces": [
+    "lib/*",
+    "services/*"
+  ]
+}
