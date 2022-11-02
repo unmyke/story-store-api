@@ -7,6 +7,7 @@ describe('# @services/prodcut::createRepo', () => {
     expect(repo).toStrictEqual({
       getProduct: expect.any(Function),
       getProducts: expect.any(Function),
+      createProduct: expect.any(Function),
     });
   });
 });
