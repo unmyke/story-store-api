@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/common/request.json",
+  "title": "HTTP Request",
+  "type": "object",
+  "properties": {
+    "params": {
+      "type": "object"
+    },
+    "query": {
+      "type": "object"
+    },
+    "body": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

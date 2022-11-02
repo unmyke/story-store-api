@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/common/responses/400.json",
+  "title": "Bad request error response",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "$ref": "/schemas/common/status-codes.json",
+      "const": 400
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "message": true,
+        "errors": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "object"
+            },
+            "params": {
+              "type": "object"
+            },
+            "body": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "required": ["message"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["statusCode", "body"],
+  "additionalProperties": false
+}

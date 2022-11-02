@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/product/product-list.json",
+  "title": "Product list",
+  "type": "array",
+  "items": {
+    "$ref": "/schemas/product/product.json"
+  }
+}

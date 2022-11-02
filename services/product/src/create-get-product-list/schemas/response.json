@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/product/get-product-list/response.json",
+  "title": "get-product-list response",
+  "oneOf": [
+    {
+      "$ref": "/schemas/product/get-product-list/response-200.json"
+    },
+    {
+      "$ref": "/schemas/common/responses/400.json"
+    },
+    {
+      "$ref": "/schemas/common/responses/500.json"
+    }
+  ]
+}

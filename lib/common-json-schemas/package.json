@@ -1,0 +1,12 @@
+{
+  "name": "@lib/common-json-schemas",
+  "description": "Error list",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "index.js",
+  "engines": {
+    "node": "16.17.0"
+  },
+  "scripts": {},
+  "devDependencies": {}
+}
