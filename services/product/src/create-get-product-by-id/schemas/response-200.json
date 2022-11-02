@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/product/get-product-by-id/response-200.json",
+  "title": "get-product-by-id success response",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "/schemas/common/responses/200.json"
+    }
+  ],
+  "properties": {
+    "statusCode": true,
+    "body": {
+      "$ref": "/schemas/product/product.json"
+    }
+  },
+  "required": ["body"]
+}

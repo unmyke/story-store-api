@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/product/get-product-list/request.json",
+  "title": "get-product-list request",
+  "type": "object",
+  "properties": {
+    "query": {
+      "$ref": "/schemas/product/get-product-list/request/query.json"
+    },
+    "params": {
+      "$ref": "/schemas/common/empty-object.json"
+    }
+  },
+  "required": ["query", "params"],
+  "additionalProperties": false
+}
