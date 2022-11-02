@@ -3,7 +3,6 @@
   "description": "Error list",
   "version": "0.1.0",
   "license": "MIT",
-  "type": "module",
   "main": "errors.js",
   "engines": {
     "node": "16.17.0"
