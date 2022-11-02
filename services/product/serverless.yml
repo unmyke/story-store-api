@@ -10,6 +10,21 @@ provider:
   stage: ${opt:stage, 'dev'}
   httpApi:
     cors: true
+  vpc:
+    securityGroupIds:
+      - !Ref LambdaSecurityGroup
+    subnetIds:
+      - !Ref SubnetAPrivate
+      - !Ref SubnetBPrivate
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    DB_HOST: ${self:custom.database.HOST}
+    DB_PORT: ${self:custom.database.PORT}
+    DB_NAME: ${self:custom.database.NAME}
+    DB_AUTH: ${self:custom.database.AUTH}
+    DB_USER: ${self:custom.database.USER}
+    DB_PASSWORD: ${self:custom.database.PASSWORD}
+    DB_REGION: ${self:provider.region}
 
 plugins:
   - serverless-webpack
@@ -17,18 +32,43 @@ plugins:
 custom:
   webpack:
     packager: 'yarn'
+  bundle:
+    ignorePackages:
+      - pg-native
+  database:
+    HOST: !GetAtt RDSProxy.Endpoint
+    PORT: !GetAtt RDSInstance.Endpoint.Port
+    NAME: ${file(./secrets.yml):${self:provider.stage}.db.database}
+    AUTH: ${file(./secrets.yml):${self:provider.stage}.db.auth, 'simple'}
+    USER: ${file(./secrets.yml):${self:provider.stage}.db.user}
+    PASSWORD: ${file(./secrets.yml):${self:provider.stage}.db.password}
+    PROXY_NAME: proxy-${opt:stage, 'dev'}
+    VPC_CIDR: 10
 
 functions:
-  product:
+  create-product:
+    handler: src/index.createProduct
+    events:
+      - httpApi:
+          path: /${self:provider.stage}/products
+          method: post
+
+  get-product-by-id:
     handler: src/index.getProductById
     events:
       - httpApi:
           path: /${self:provider.stage}/products/{id}
           method: get
 
-  products:
+  get-product-list:
     handler: src/index.getProductList
     events:
       - httpApi:
           path: /${self:provider.stage}/products
           method: get
+
+resources:
+  - ${file(resources/VpcResources.yml)}
+  - ${file(resources/RoutingResources.yml)}
+  - ${file(resources/RdsResources.yml)}
+  - ${file(resources/RdsProxyResources.yml)}
