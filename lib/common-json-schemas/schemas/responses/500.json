@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/common/responses/500.json",
+  "title": "Internal server error response",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "$ref": "/schemas/common/status-codes.json",
+      "const": 500
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "const": "Internal Server Error"
+        }
+      },
+      "required": ["message"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["statusCode", "body"],
+  "additionalProperties": false
+}

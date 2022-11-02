@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/common/responses/200.json",
+  "title": "OK response",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "$ref": "/schemas/common/status-codes.json",
+      "const": 200
+    }
+  },
+  "required": ["statusCode"]
+}

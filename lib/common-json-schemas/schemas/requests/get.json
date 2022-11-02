@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/common/requests/get.json",
+  "title": "HTTP GET request",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "/schemas/common/request.json"
+    }
+  ],
+  "properties": {
+    "params": true,
+    "query": true
+  },
+  "required": ["params", "query"]
+}
