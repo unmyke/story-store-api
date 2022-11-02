@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/product/create-product/request.json",
+  "title": "create-product request",
+  "type": "object",
+  "properties": {
+    "body": {
+      "$ref": "/schemas/product/create-product/request/body.json"
+    },
+    "params": {
+      "$ref": "/schemas/common/empty-object.json"
+    }
+  },
+  "required": ["body", "params"],
+  "additionalProperties": false
+}
