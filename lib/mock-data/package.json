@@ -1,0 +1,6 @@
+{
+  "name": "@lib/mock-data",
+  "description": "Mock data",
+  "version": "0.1.0",
+  "main": "src"
+}
