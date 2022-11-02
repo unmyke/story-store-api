@@ -1,0 +1,17 @@
+{
+  "name": "@lib/create-db",
+  "description": "Create database",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "src",
+  "engines": {
+    "node": "16.17.0"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@lib/create-config": "0.1.0",
+    "@lib/errors": "0.1.0",
+    "aws-sdk": "^2.1239.0",
+    "pg": "^8.8.0"
+  }
+}
