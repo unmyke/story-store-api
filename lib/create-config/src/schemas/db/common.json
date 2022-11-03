@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://dojorena.io/schemas/config/db/common.json",
+  "title": "Common database configuration",
+  "type": "object",
+  "properties": {
+    "host": {
+      "title": "Database hostname",
+      "type": "string",
+      "format": "hostname"
+    },
+    "port": {
+      "title": "Database port",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "database": {
+      "title": "Database name",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]+[a-z0-9]$"
+    }
+  },
+  "required": ["host", "port", "database"]
+}

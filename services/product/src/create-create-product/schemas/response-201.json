@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/product/create-product/response-201.json",
+  "title": "create-product success response",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "/schemas/common/responses/201.json"
+    }
+  ],
+  "properties": {
+    "statusCode": true,
+    "body": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": ["id"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["body"],
+  "additionalProperties": false
+}
