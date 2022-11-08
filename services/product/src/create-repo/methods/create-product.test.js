@@ -9,7 +9,7 @@ describe('# @services/prodcut::createRepo::createProduct', () => {
     describe('when create product successed', () => {
       it('should call db.query method with all SQL trans', async () => {
         const noop = () => {};
-        const query = jest.fn(async () => {});
+        const query = jest.fn();
         const transaction = async (queryCallback) => {
           await queryCallback(query);
         };

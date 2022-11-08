@@ -1,6 +1,6 @@
 import { pingPong } from './ping-pong';
 
-describe('# services:pingPong', () => {
+describe('# @services/status::pingPong', () => {
   it('should return response with status 201 and JSON body as passed request', async () => {
     const request = { test: 'test' };
     const response = await pingPong(request);
