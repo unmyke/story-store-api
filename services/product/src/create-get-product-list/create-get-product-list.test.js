@@ -2,7 +2,7 @@ import { products } from '@lib/mock-data';
 
 import { createGetProductList } from './create-get-product-list';
 
-describe('# services:createGetProductList', () => {
+describe('# @services/product::createGetProductList', () => {
   describe('when filter not passed', () => {
     it('should return the list of all products', async () => {
       const getProducts = async () => products;

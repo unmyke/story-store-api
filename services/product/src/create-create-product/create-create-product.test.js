@@ -1,6 +1,6 @@
 import { createCreateProduct } from './create-create-product';
 
-describe('# services:createCreateProduct', () => {
+describe('# @services/product::createCreateProduct', () => {
   describe('when filter not passed', () => {
     it('should return id of new product', async () => {
       const repo = { createProduct: async () => {} };

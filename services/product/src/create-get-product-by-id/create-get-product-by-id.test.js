@@ -3,7 +3,7 @@ import { products } from '@lib/mock-data';
 
 import { createGetProductById } from './create-get-product-by-id';
 
-describe('# services:createGetProductById', () => {
+describe('# @services/product::createGetProductById', () => {
   describe('when passed id of existing product', () => {
     it('should return the product', async () => {
       expect.assertions(products.length);
