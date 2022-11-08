@@ -1,3 +1,4 @@
+import { ErrorTypes } from '@lib/errors';
 import { products } from '@lib/mock-data';
 
 import { getProduct as getProductFactory } from './get-product';
@@ -41,8 +42,8 @@ describe('# @services/prodcut::createRepo::getProduct', () => {
       const error = await getProduct('id').catch((err) => err);
       expect(error).toMatchObject({
         message: 'Product with id "id" not found',
-        type: 'data-access',
-        code: 'not-found',
+        type: ErrorTypes.DATA_ACCESS.name,
+        code: ErrorTypes.DATA_ACCESS.codes.NOT_FOUND,
       });
     });
   });
