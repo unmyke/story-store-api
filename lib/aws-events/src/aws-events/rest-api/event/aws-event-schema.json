@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://dojorena.io/schemas/aws/events/rest-api.json",
+  "title": "AWS HTTP API event",
+  "type": "object",
+  "properties": {
+    "resource": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "httpMethod": {
+      "type": "string"
+    }
+  },
+  "required": ["resource", "path", "httpMethod"],
+  "additionalProperties": true
+}
