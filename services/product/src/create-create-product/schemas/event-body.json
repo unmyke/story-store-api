@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "/schemas/product/create-product/request/body.json",
-  "title": "create-product request body",
+  "$id": "/schemas/product/create-product/event/body.json",
+  "title": "create-product event body",
   "type": "object",
   "properties": {
     "title": {

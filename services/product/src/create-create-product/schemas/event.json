@@ -1,11 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "/schemas/product/create-product/request.json",
-  "title": "create-product request",
+  "$id": "/schemas/product/create-product/event.json",
+  "title": "create-product event",
   "type": "object",
   "properties": {
     "body": {
-      "$ref": "/schemas/product/create-product/request/body.json"
+      "$ref": "/schemas/product/create-product/event/body.json"
     },
     "params": {
       "$ref": "/schemas/common/empty-object.json"

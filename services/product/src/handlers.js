@@ -1,4 +1,4 @@
-import { createGatewayHandlers } from '@lib/create-gateway-handlers';
+import { createEventHandlers } from '@lib/create-event-handlers';
 import { createDb } from '@lib/create-db';
 import { createConfig } from '@lib/create-config';
 
@@ -11,7 +11,7 @@ const config = createConfig();
 const db = createDb(config.db);
 
 export const { createProduct, getProductById, getProductList } =
-  createGatewayHandlers({
+  createEventHandlers({
     handlers: {
       createProduct: createCreateProduct,
       getProductById: createGetProductById,
