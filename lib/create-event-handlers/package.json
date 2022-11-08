@@ -1,15 +1,15 @@
 {
-  "name": "@lib/create-gateway-handlers",
-  "description": "Product API",
+  "name": "@lib/create-event-handlers",
+  "description": "Create HTTP gateway handlers",
   "version": "0.1.0",
   "main": "src",
   "license": "MIT",
   "engines": {
     "node": "16.17.0"
   },
-  "scripts": {},
   "dependencies": {
     "@lib/create-validate": "0.1.0",
-    "@lib/errors": "0.1.0"
+    "@lib/errors": "0.1.0",
+    "@lib/aws-events": "0.1.0"
   }
 }
