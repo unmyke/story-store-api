@@ -2,11 +2,11 @@
   "name": "@lib/create-validate",
   "description": "JSON schema validation",
   "version": "0.1.0",
+  "license": "MIT",
   "main": "src",
   "engines": {
     "node": "16.17.0"
   },
-  "scripts": {},
   "dependencies": {
     "@lib/common-json-schemas": "0.1.0",
     "@lib/errors": "0.1.0",

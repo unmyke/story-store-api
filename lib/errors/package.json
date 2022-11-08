@@ -6,7 +6,5 @@
   "main": "errors.js",
   "engines": {
     "node": "16.17.0"
-  },
-  "scripts": {},
-  "devDependencies": {}
+  }
 }

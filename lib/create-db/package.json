@@ -7,7 +7,6 @@
   "engines": {
     "node": "16.17.0"
   },
-  "scripts": {},
   "dependencies": {
     "@lib/create-config": "0.1.0",
     "@lib/errors": "0.1.0",
