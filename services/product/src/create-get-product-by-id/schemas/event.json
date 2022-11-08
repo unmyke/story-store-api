@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/product/get-product-by-id/event.json",
+  "title": "get-product-by-id event",
+  "type": "object",
+  "properties": {
+    "params": {
+      "$ref": "/schemas/product/get-product-by-id/event/params.json"
+    },
+    "query": {
+      "$ref": "/schemas/common/empty-object.json"
+    }
+  },
+  "required": ["params", "query"],
+  "additionalProperties": false
+}

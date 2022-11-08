@@ -1,9 +1,9 @@
-import request from './request.json';
-import requestBody from './request-body.json';
+import event from './event.json';
+import eventBody from './event-body.json';
 import response from './response.json';
 import response201 from './response-201.json';
 
 export const schemas = {
-  request: { schema: request, references: [requestBody] },
+  event: { schema: event, references: [eventBody] },
   response: { schema: response, references: [response201] },
 };

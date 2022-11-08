@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/product/get-product-by-id/event/params.json",
+  "title": "get-product-by-id event params",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": ["id"],
+  "additionalProperties": false
+}
