@@ -1,4 +1,4 @@
-import { errors } from '@lib/errors';
+import { Errors } from '@lib/errors';
 import { products } from '@lib/mock-data';
 
 import { createGetProductById } from './create-get-product-by-id';
@@ -25,14 +25,14 @@ describe('# @services/product::createGetProductById', () => {
     it('should throw "not found" error', async () => {
       expect.assertions(2);
       const getProduct = async (id) => {
-        throw new errors.NotFound(`Product with id "${id}" not found`);
+        throw new Errors.NotFound(`Product with id "${id}" not found`);
       };
       const repo = { getProduct };
       const getProductById = createGetProductById({ repo });
       const error = await getProductById({
         params: { id: 'non-existent-id' },
       }).catch((error) => error);
-      await expect(error).toBeInstanceOf(errors.NotFound);
+      await expect(error).toBeInstanceOf(Errors.NotFound);
       await expect(error.message).toBe(
         'Product with id "non-existent-id" not found',
       );

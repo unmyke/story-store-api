@@ -1,4 +1,4 @@
-import { errors } from '@lib/errors';
+import { Errors } from '@lib/errors';
 
 import { SELECT_PRODUCTS_QUERY } from './sql-queries';
 
@@ -10,6 +10,6 @@ export const getProduct =
       rows: [product],
     } = await query(sqlQuery, [productId]);
     if (!product)
-      throw new errors.NotFound(`Product with id "${productId}" not found`);
+      throw new Errors.NotFound(`Product with id "${productId}" not found`);
     return product;
   };

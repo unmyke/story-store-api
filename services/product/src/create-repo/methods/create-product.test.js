@@ -1,4 +1,4 @@
-import { errors } from '@lib/errors';
+import { Errors } from '@lib/errors';
 
 import { createProduct as createProductFactory } from './create-product';
 
@@ -57,7 +57,7 @@ describe('# @services/prodcut::createRepo::createProduct', () => {
       it('should throw query error', async () => {
         const noop = () => {};
         const query = jest.fn(async () => {
-          throw new errors.Query('query error');
+          throw new Errors.Query('query error');
         });
         const transaction = async (queryCallback) => {
           await queryCallback(query);
