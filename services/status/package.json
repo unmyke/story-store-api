@@ -7,7 +7,6 @@
   "engines": {
     "node": "16.17.0"
   },
-  "scripts": {},
   "devDependencies": {
     "@lib/create-webpack-config": "0.1.0"
   }

@@ -2,11 +2,11 @@
   "name": "@lib/create-config",
   "description": "Create configuration",
   "version": "0.1.0",
+  "license": "MIT",
   "main": "src",
   "engines": {
     "node": "16.17.0"
   },
-  "scripts": {},
   "dependencies": {
     "@lib/errors": "0.1.0",
     "@lib/create-validate": "0.1.0"

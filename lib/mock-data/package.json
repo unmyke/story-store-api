@@ -2,5 +2,9 @@
   "name": "@lib/mock-data",
   "description": "Mock data",
   "version": "0.1.0",
-  "main": "src"
+  "license": "MIT",
+  "main": "src",
+  "engines": {
+    "node": "16.17.0"
+  }
 }
