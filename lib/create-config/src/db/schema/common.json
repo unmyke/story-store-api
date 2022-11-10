@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "http://dojorena.io/schemas/config/db/common.json",
+  "$id": "/schemas/config/db/common.json",
   "title": "Common database configuration",
   "type": "object",
   "properties": {
