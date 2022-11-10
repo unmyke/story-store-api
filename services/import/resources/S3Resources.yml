@@ -1,0 +1,30 @@
+Resources:
+  UploadStoreS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${self:custom.uploadStore.BUCKET}
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - 'PUT'
+            AllowedOrigins:
+              - '*'
+  UploadStoreS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref UploadStoreS3Bucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action:
+              - 's3:GetObject'
+              - 's3:PutObject'
+            Effect: Allow
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref UploadStoreS3Bucket
+                - /*
+            Principal: '*'

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/import/import-file-parser/event.json",
+  "title": "import-file-parser event",
+  "type": "object",
+  "properties": {
+    "s3Event": {
+      "type": "string",
+      "enum": ["created", "deleted"]
+    },
+    "bucket": {
+      "type": "string",
+      "minLength": 1
+    },
+    "file": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": ["s3Event", "bucket", "file"],
+  "additionalProperties": false
+}

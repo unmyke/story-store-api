@@ -1,0 +1,22 @@
+{
+  "name": "@lib/create-upload-store",
+  "description": "Create upload store",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "src",
+  "engines": {
+    "node": "16.17.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.204.0",
+    "@aws-sdk/s3-request-presigner": "^3.204.0",
+    "@lib/errors": "0.1.0"
+  },
+  "devDependencies": {
+    "aws-sdk-client-mock": "^2.0.0",
+    "aws-sdk-client-mock-jest": "^2.0.0"
+  }
+}

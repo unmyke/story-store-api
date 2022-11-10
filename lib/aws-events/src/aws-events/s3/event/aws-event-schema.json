@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/aws/events/s3/event.json",
+  "title": "AWS S3 event",
+  "type": "object",
+  "properties": {
+    "Records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    }
+  },
+  "required": ["Records"],
+  "additionalProperties": false,
+  "$defs": {
+    "record": {
+      "$schema": "http://json-schema.org/draft-07/schema",
+      "$id": "/schemas/aws/events/s3/record.json",
+      "title": "AWS S3 event record",
+      "type": "object",
+      "properties": {
+        "eventSource": {
+          "type": "string",
+          "const": "aws:s3"
+        },
+        "eventVersion": {
+          "type": "string",
+          "const": "2.0"
+        }
+      },
+      "required": ["eventSource", "eventVersion"],
+      "additionalProperties": true
+    }
+  }
+}

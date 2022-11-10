@@ -1,0 +1,74 @@
+service: import
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: eu-west-1
+  profile: serverless
+  stage: ${opt:stage, 'dev'}
+  httpApi:
+    cors: true
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action: 's3:ListBucket'
+          Resource: !GetAtt UploadStoreS3Bucket.Arn
+        - Effect: 'Allow'
+          Action: 's3:*'
+          Resource:
+            'Fn::Join':
+              - ''
+              - [!GetAtt UploadStoreS3Bucket.Arn, '/*']
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    UPLOAD_STORE_BUCKET: ${self:custom.uploadStore.BUCKET}
+    UPLOAD_STORE_REGION: ${self:provider.region}
+    UPLOAD_STORE_DIRS_UPLOADED: ${self:custom.uploadStore.dirs.UPLOADED}
+    UPLOAD_STORE_DIRS_PARSED: ${self:custom.uploadStore.dirs.PARSED}
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    packager: 'yarn'
+  uploadStore:
+    BUCKET: ${file(./secrets.yml):${self:provider.stage}.uploadStore.bucket}
+    dirs:
+      UPLOADED: ${file(./secrets.yml):${self:provider.stage}.uploadStore.dirs.uploaded}
+      PARSED: ${file(./secrets.yml):${self:provider.stage}.uploadStore.dirs.parsed}
+
+functions:
+  import-products-file:
+    handler: src/index.importProductsFile
+    events:
+      - httpApi:
+          path: /${self:provider.stage}/import
+          method: get
+
+  import-file-parser:
+    handler: src/index.importFileParser
+    events:
+      - s3:
+          bucket: ${self:custom.uploadStore.BUCKET}
+          event: 's3:ObjectCreated:*'
+          rules:
+            - prefix: ${self:custom.uploadStore.dirs.UPLOADED}
+          existing: true
+
+  # import-test-handler:
+  #   handler: test.importTestHandler
+  #   events:
+  #     - s3:
+  #         bucket: ${self:custom.uploadStore.BUCKET}
+  #         event: 's3:ObjectCreated:*'
+  #         rules:
+  #           - prefix: ${self:custom.uploadStore.dirs.UPLOADED}
+  #         existing: true
+
+resources:
+  - ${file(resources/LambdaExecutionRole.yml)}
+  - ${file(resources/S3Resources.yml)}
