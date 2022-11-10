@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/config/db.json",
+  "title": "Database configuration",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "/schemas/config/db/simple-auth.json"
+    },
+    {
+      "$ref": "/schemas/config/db/iam-auth.json"
+    }
+  ]
+}
