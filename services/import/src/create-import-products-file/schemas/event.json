@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/import/import-products-file/event.json",
+  "title": "import-products-file event",
+  "type": "object",
+  "properties": {
+    "params": {
+      "$ref": "/schemas/common/empty-object.json"
+    },
+    "query": {
+      "$ref": "/schemas/import/import-products-file/event/query.json"
+    }
+  },
+  "required": ["params", "query"],
+  "additionalProperties": false
+}
