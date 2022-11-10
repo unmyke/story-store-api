@@ -7,6 +7,9 @@
   "engines": {
     "node": "16.17.0"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "serverless-webpack": "^5.3.1",
     "webpack": "^5.75.0"
