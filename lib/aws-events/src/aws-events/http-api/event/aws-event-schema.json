@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "http://dojorena.io/schemas/aws/events/http-api.json",
+  "$id": "/schemas/aws/events/http-api.json",
   "title": "AWS HTTP API event",
   "type": "object",
   "properties": {

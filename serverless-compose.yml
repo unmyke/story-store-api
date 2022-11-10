@@ -1,5 +1,3 @@
 services:
   product:
     path: services/product
-  status:
-    path: services/status
