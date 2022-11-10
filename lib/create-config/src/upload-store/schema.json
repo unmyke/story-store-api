@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/config/upload-store.json",
+  "title": "Upload store configuration",
+  "type": "object",
+  "properties": {
+    "region": {
+      "title": "AWS S3 region",
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "bucket": {
+      "title": "AWS S3 bucket name",
+      "type": "string"
+    },
+    "dirs": {
+      "title": "Store directories",
+      "type": "object",
+      "properties": {
+        "uploaded": {
+          "title": "Directory for upload files",
+          "type": "string"
+        },
+        "parsed": {
+          "title": "Directory for parsed files",
+          "type": "string"
+        }
+      },
+      "required": ["uploaded", "parsed"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["region", "bucket", "dirs"],
+  "additionalProperties": false
+}
