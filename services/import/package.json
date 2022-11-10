@@ -11,7 +11,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@lib/create-config": "0.1.0",
+    "@lib/create-event-handlers": "0.1.0",
     "@lib/errors": "0.1.0",
+    "@lib/create-upload-store": "0.1.0",
+    "@lib/aws-events": "0.1.0",
     "csv-parser": "^3.0.0"
   },
   "devDependencies": {
