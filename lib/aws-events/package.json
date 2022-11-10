@@ -8,11 +8,6 @@
     "node": "16.17.0"
   },
   "dependencies": {
-    "@lib/create-validate": "0.1.0",
     "@lib/errors": "0.1.0"
-  },
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.108",
-    "json-schema": "^0.4.0"
   }
 }
