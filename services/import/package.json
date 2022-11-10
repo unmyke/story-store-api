@@ -1,0 +1,16 @@
+{
+  "name": "@services/import",
+  "description": "Import API",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "src",
+  "engines": {
+    "node": "16.17.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@lib/create-webpack-config": "0.1.0"
+  }
+}
