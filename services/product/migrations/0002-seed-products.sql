@@ -1,5 +1,5 @@
 INSERT INTO
-    products(title, description, price)
+    products(id, title, description, price)
 VALUES
     ('7567ec4b-b10c-48c5-9345-fc73c48a80aa', 'ProductOne', 'Short Product Description1', 24),
     ('7567ec4b-b10c-48c5-9345-fc73c48a80a1', 'ProductTitle', 'Short Product Description7', 15),
