@@ -8,6 +8,7 @@ describe('# @services/prodcut::createRepo', () => {
       getProduct: expect.any(Function),
       getProducts: expect.any(Function),
       createProduct: expect.any(Function),
+      createProducts: expect.any(Function),
     });
   });
 });
