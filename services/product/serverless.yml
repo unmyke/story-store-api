@@ -36,8 +36,8 @@ custom:
     ignorePackages:
       - pg-native
   database:
-    HOST: !GetAtt RDSProxy.Endpoint
-    PORT: !GetAtt RDSInstance.Endpoint.Port
+    HOST: !GetAtt AuroraRdsCluster.Endpoint.Address
+    PORT: ${file(./secrets.yml):${self:provider.stage}.db.port}
     NAME: ${file(./secrets.yml):${self:provider.stage}.db.database}
     AUTH: ${file(./secrets.yml):${self:provider.stage}.db.auth, 'simple'}
     USER: ${file(./secrets.yml):${self:provider.stage}.db.user}
@@ -71,4 +71,3 @@ resources:
   - ${file(resources/VpcResources.yml)}
   - ${file(resources/RoutingResources.yml)}
   - ${file(resources/RdsResources.yml)}
-  - ${file(resources/RdsProxyResources.yml)}

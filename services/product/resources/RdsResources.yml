@@ -1,19 +1,35 @@
 Resources:
+  AuroraRdsCluster:
+    Type: 'AWS::RDS::DBCluster'
+    DeletionPolicy: Delete
+    Properties:
+      Engine: aurora-postgresql
+      DBClusterIdentifier: ${self:custom.database.NAME}
+      DatabaseName: ${self:custom.database.NAME}
+      Port: ${self:custom.database.PORT}
+      EngineVersion: 14.5
+      MasterUsername: ${self:custom.database.USER}
+      MasterUserPassword: ${self:custom.database.PASSWORD}
+      EngineMode: provisioned
+      ServerlessV2ScalingConfiguration:
+        MinCapacity: 0.5
+        MaxCapacity: 1
+      DBSubnetGroupName: !Ref RDSSubnetGroup
+      VpcSecurityGroupIds:
+        - !GetAtt RDSSecurityGroup.GroupId
+
   RDSInstance:
     DependsOn: VPCGA
     Type: AWS::RDS::DBInstance
     Properties:
-      DBName: ${self:custom.database.NAME}
-      MasterUsername: ${self:custom.database.USER}
-      MasterUserPassword: ${self:custom.database.PASSWORD}
-      Engine: postgres
-      EngineVersion: '13.4'
-      DBInstanceClass: db.t3.micro
-      AllocatedStorage: '20'
+      DBClusterIdentifier: !Ref AuroraRdsCluster
+      Engine: aurora-postgresql
+      EngineVersion: 14.5
+      DBInstanceClass: db.serverless
       PubliclyAccessible: true
-      DBSubnetGroupName: !Ref RDSSubnetGroup
-      VPCSecurityGroups:
-        - !GetAtt RDSSecurityGroup.GroupId
+      # DBSubnetGroupName: !Ref RDSSubnetGroup
+      # VPCSecurityGroups:
+      #   - !GetAtt RDSSecurityGroup.GroupId
 
   RDSSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
