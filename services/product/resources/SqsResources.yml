@@ -1,0 +1,5 @@
+Resources:
+  CatalogItemsSqsQueue:
+    Type: 'AWS::SQS::Queue'
+    Properties:
+      QueueName: ${self:custom.queues.CATALOG_ITEMS}

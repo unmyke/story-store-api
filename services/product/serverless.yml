@@ -44,6 +44,8 @@ custom:
     PASSWORD: ${file(./secrets.yml):${self:provider.stage}.db.password}
     PROXY_NAME: proxy-${opt:stage, 'dev'}
     VPC_CIDR: 10
+  queues:
+    CATALOG_ITEMS: ${file(./secrets.yml):${self:provider.stage}.queues.catalogItems}
 
 functions:
   create-product:
@@ -67,7 +69,15 @@ functions:
           path: /${self:provider.stage}/products
           method: get
 
+  catalog-batch-process:
+    handler: src/index.catalogBatchProcess
+    events:
+      - sqs:
+          arn: !GetAtt CatalogItemsSqsQueue.Arn
+          batchSize: 5
+
 resources:
   - ${file(resources/VpcResources.yml)}
   - ${file(resources/RoutingResources.yml)}
   - ${file(resources/RdsResources.yml)}
+  - ${file(resources/SqsResources.yml)}
