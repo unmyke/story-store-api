@@ -9,9 +9,14 @@ import { handler as createImportFileParser } from './create-import-file-parser';
 const config = createConfig(
   ConfigSections.UPLOAD_STORE,
   ConfigSections.EVENT_BUS,
+  ConfigSections.QUEUES,
 );
 const uploadStore = createUploadStore(config[ConfigSections.UPLOAD_STORE]);
 const eventBus = createEventBus(config[ConfigSections.EVENT_BUS]);
+const handlersConfig = {
+  dirs: config[ConfigSections.UPLOAD_STORE].dirs,
+  queues: config.queues,
+};
 
 export const { importProductsFile, importFileParser } = createEventHandlers({
   handlers: {
@@ -19,7 +24,7 @@ export const { importProductsFile, importFileParser } = createEventHandlers({
     importFileParser: createImportFileParser,
   },
   context: {
-    config: config[ConfigSections.UPLOAD_STORE],
+    config: handlersConfig,
     uploadStore,
     eventBus,
   },
