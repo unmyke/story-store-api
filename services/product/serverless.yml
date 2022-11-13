@@ -16,6 +16,13 @@ provider:
     subnetIds:
       - !Ref SubnetAPrivate
       - !Ref SubnetBPrivate
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action: ['sns:*']
+          Resource:
+            Ref: 'CreateProductSnsTopic'
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     DB_HOST: ${self:custom.database.HOST}
@@ -25,6 +32,9 @@ provider:
     DB_USER: ${self:custom.database.USER}
     DB_PASSWORD: ${self:custom.database.PASSWORD}
     DB_REGION: ${self:provider.region}
+    NOTIFIER_REGION: ${self:provider.region}
+    NOTIFIER_BASE_ARN: arn:aws:sns:${self:provider.region}:${aws:accountId}
+    NOTIFIER_CREATE_PRODUCT_TOPIC: ${self:custom.notifier.createProduct.TOPIC_NAME}
 
 plugins:
   - serverless-webpack
@@ -44,6 +54,14 @@ custom:
     PASSWORD: ${file(./secrets.yml):${self:provider.stage}.db.password}
     PROXY_NAME: proxy-${opt:stage, 'dev'}
     VPC_CIDR: 10
+  queues:
+    CATALOG_ITEMS: ${file(./secrets.yml):${self:provider.stage}.queues.catalogItems}
+  notifier:
+    createProduct:
+      TOPIC_NAME: ${file(./secrets.yml):${self:provider.stage}.notifier.createProduct.topicName}
+      emails:
+        LOW_PRICE: ${file(./secrets.yml):${self:provider.stage}.notifier.createProduct.emails.lowPrice}
+        HIGH_PRICE: ${file(./secrets.yml):${self:provider.stage}.notifier.createProduct.emails.highPrice}
 
 functions:
   create-product:
@@ -67,7 +85,16 @@ functions:
           path: /${self:provider.stage}/products
           method: get
 
+  catalog-batch-process:
+    handler: src/index.catalogBatchProcess
+    events:
+      - sqs:
+          arn: !GetAtt CatalogItemsSqsQueue.Arn
+          batchSize: 5
+
 resources:
   - ${file(resources/VpcResources.yml)}
   - ${file(resources/RoutingResources.yml)}
   - ${file(resources/RdsResources.yml)}
+  - ${file(resources/SqsResources.yml)}
+  - ${file(resources/SnsResources.yml)}

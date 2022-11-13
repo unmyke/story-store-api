@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/config/event-bus.json",
+  "title": "Event bus configuration",
+  "type": "object",
+  "properties": {
+    "region": {
+      "title": "AWS S3 region",
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "baseUrl": {
+      "title": "AWS SQS base url (https://sqs.{region}.amazonaws.com/{account_id}",
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://sqs\\.[a-z]{2}-[a-z]+-\\d+\\.amazonaws\\.com/\\d+$"
+    }
+  },
+  "required": ["region", "baseUrl"],
+  "additionalProperties": false
+}

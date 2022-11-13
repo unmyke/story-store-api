@@ -22,12 +22,18 @@ provider:
             'Fn::Join':
               - ''
               - [!GetAtt UploadStoreS3Bucket.Arn, '/*']
+        - Effect: 'Allow'
+          Action: ['sqs:*']
+          Resource: '*'
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     UPLOAD_STORE_BUCKET: ${self:custom.uploadStore.BUCKET}
     UPLOAD_STORE_REGION: ${self:provider.region}
     UPLOAD_STORE_DIRS_UPLOADED: ${self:custom.uploadStore.dirs.UPLOADED}
     UPLOAD_STORE_DIRS_PARSED: ${self:custom.uploadStore.dirs.PARSED}
+    EVENT_BUS_REGION: ${self:provider.region}
+    EVENT_BUS_BASE_URL: https://sqs.${self:provider.region}.amazonaws.com/${aws:accountId}
+    QUEUES_CATALOG_ITEMS: ${self:custom.queues.CATALOG_ITEMS}
 
 plugins:
   - serverless-webpack
@@ -40,6 +46,8 @@ custom:
     dirs:
       UPLOADED: ${file(./secrets.yml):${self:provider.stage}.uploadStore.dirs.uploaded}
       PARSED: ${file(./secrets.yml):${self:provider.stage}.uploadStore.dirs.parsed}
+  queues:
+    CATALOG_ITEMS: ${file(./secrets.yml):${self:provider.stage}.queues.catalogItems}
 
 functions:
   import-products-file:

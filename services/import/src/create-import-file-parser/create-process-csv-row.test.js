@@ -14,7 +14,7 @@ describe('# @services/product::createImportFileParser::createProcessCsvRow', () 
     describe('when process csv file callback successful handle rows', () => {
       describe('when passed a csv file stream', () => {
         it('should call process row callback', async () => {
-          const csvProcess = jest.fn();
+          const csvProcess = jest.fn(async () => {});
           const processCsvRow = createProcessCsvRow(csvProcess);
           const stream = Readable.from(
             '"field1","field2"\n"value11","value12"\n"value21","value22"\n',
@@ -35,7 +35,7 @@ describe('# @services/product::createImportFileParser::createProcessCsvRow', () 
 
       describe('when passed not a csv file stream', () => {
         it('should not call process row callback', async () => {
-          const csvProcess = jest.fn();
+          const csvProcess = jest.fn(async () => {});
           const processCsvRow = createProcessCsvRow(csvProcess);
           const stream = Readable.from(Buffer.from([1, 2, 3]));
           await processCsvRow(stream);

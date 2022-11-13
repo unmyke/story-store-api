@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/import/create-catalog-batch-process/events.json",
+  "title": "create-catalog-batch-process events",
+  "type": "array",
+  "items": {
+    "title": "create-catalog-batch-process event",
+    "type": "object",
+    "properties": {
+      "context": {
+        "type": "object"
+      },
+      "payload": {
+        "$ref": "#/$defs/payload"
+      }
+    },
+    "required": ["context", "payload"],
+    "additionalProperties": false
+  },
+  "$defs": {
+    "payload": {
+      "$schema": "http://json-schema.org/draft-07/schema",
+      "$id": "/schemas/import/create-catalog-batch-process/event/payload.json",
+      "title": "create-catalog-batch-process event payload",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "price": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "count": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["title", "description", "price", "count"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,21 @@
+Resources:
+  CreateProductSnsTopic:
+    Type: 'AWS::SNS::Topic'
+    Properties:
+      TopicName: ${self:custom.notifier.createProduct.TOPIC_NAME}
+  CreateProductLowPriceSNSSubscription:
+    Type: 'AWS::SNS::Subscription'
+    Properties:
+      Endpoint: ${self:custom.notifier.createProduct.emails.LOW_PRICE}
+      Protocol: email
+      TopicArn:
+        Ref: 'CreateProductSnsTopic'
+      FilterPolicy: { 'price': [{ 'numeric': ['<', 300] }] }
+  CreateProductHighPriceSNSSubscription:
+    Type: 'AWS::SNS::Subscription'
+    Properties:
+      Endpoint: ${self:custom.notifier.createProduct.emails.HIGH_PRICE}
+      Protocol: email
+      TopicArn:
+        Ref: 'CreateProductSnsTopic'
+      FilterPolicy: { 'price': [{ 'numeric': ['>=', 300] }] }
