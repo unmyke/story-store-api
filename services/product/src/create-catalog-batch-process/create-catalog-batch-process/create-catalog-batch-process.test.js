@@ -37,8 +37,13 @@ const products = [
 ];
 
 describe('# @services/product::createCatalogBatchProcess', () => {
+  const config = { topics: { createProduct: 'createProductTopic' } };
   it('should return catalogBatchProcess handler', () => {
-    expect(createCatalogBatchProcess({})).toStrictEqual(expect.any(Function));
+    const repo = { createProducts: noop };
+    const notifier = { send: noop };
+    expect(createCatalogBatchProcess({ config, repo, notifier })).toStrictEqual(
+      expect.any(Function),
+    );
   });
 
   describe('## catalogBatchProcess', () => {
@@ -51,7 +56,12 @@ describe('# @services/product::createCatalogBatchProcess', () => {
       describe('when repo resolves product ids', () => {
         it('should resolves', async () => {
           const repo = { createProducts: noop };
-          const catalogBatchProcess = createCatalogBatchProcess({ repo });
+          const notifier = { send: noop };
+          const catalogBatchProcess = createCatalogBatchProcess({
+            config,
+            repo,
+            notifier,
+          });
           await expect(catalogBatchProcess(events)).resolves.toStrictEqual({
             productIds: products.map(() =>
               expect.stringMatching(
@@ -64,7 +74,12 @@ describe('# @services/product::createCatalogBatchProcess', () => {
         it('should call repo.createProducts', async () => {
           const createProducts = jest.fn();
           const repo = { createProducts };
-          const catalogBatchProcess = createCatalogBatchProcess({ repo });
+          const notifier = { send: noop };
+          const catalogBatchProcess = createCatalogBatchProcess({
+            config,
+            repo,
+            notifier,
+          });
           await catalogBatchProcess(events);
           expect(createProducts).toHaveBeenCalledTimes(1);
           expect(createProducts).toHaveBeenCalledWith(
@@ -76,6 +91,32 @@ describe('# @services/product::createCatalogBatchProcess', () => {
             })),
           );
         });
+
+        it('should call notifier.send', async () => {
+          const createProducts = noop;
+          const repo = { createProducts };
+          const send = jest.fn();
+          const notifier = { send };
+          const catalogBatchProcess = createCatalogBatchProcess({
+            config,
+            repo,
+            notifier,
+          });
+          await catalogBatchProcess(events);
+          expect(send).toHaveBeenCalledTimes(1);
+          const expectedMessageRegexp = new RegExp(
+            `New products with ids "${products
+              .map(
+                () =>
+                  '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+              )
+              .join(', ')}" created.`,
+          );
+          expect(send).toHaveBeenCalledWith(config.topics.createProduct, {
+            subject: 'New products created',
+            message: expect.stringMatching(expectedMessageRegexp),
+          });
+        });
       });
 
       describe('when repo rejects', () => {
@@ -85,7 +126,12 @@ describe('# @services/product::createCatalogBatchProcess', () => {
             throw createProductsError;
           };
           const repo = { createProducts };
-          const catalogBatchProcess = createCatalogBatchProcess({ repo });
+          const notifier = { send: noop };
+          const catalogBatchProcess = createCatalogBatchProcess({
+            config,
+            repo,
+            notifier,
+          });
           await expect(catalogBatchProcess(events)).rejects.toThrow({
             message: 'An error occured when try to create batch of products',
             type: ErrorTypes.DOMAIN.name,
