@@ -14,9 +14,9 @@ export const createProcessCsvRow = (processRow) => {
 const createProcessRowWritableStream = (processRow) =>
   new Writable({
     objectMode: true,
-    write(row, _, callback) {
+    write: async (row, _, callback) => {
       try {
-        processRow(row);
+        await processRow(row);
         callback(null, row);
       } catch (error) {
         callback(

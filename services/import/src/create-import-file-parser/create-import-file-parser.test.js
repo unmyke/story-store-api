@@ -5,7 +5,10 @@ import { ErrorTypes } from '@lib/errors';
 import { createImportFileParser } from './create-import-file-parser';
 
 describe('# @services/product::createImportFileParser', () => {
-  const config = { dirs: { uploaded: 'uploaded', parsed: 'parsed' } };
+  const config = {
+    dirs: { uploaded: 'uploaded', parsed: 'parsed' },
+    queues: { catalogItems: 'catalogItemsQueue' },
+  };
   const noop = () => {};
 
   describe('when passed file path inside upload directory', () => {
@@ -16,9 +19,11 @@ describe('# @services/product::createImportFileParser', () => {
       const getFileStream = jest.fn(async () => Readable.from([]));
       const moveFile = jest.fn();
       const uploadStore = { getFileStream, moveFile };
+      const eventBus = { send: noop };
       const importProductsFile = createImportFileParser({
         config,
         uploadStore,
+        eventBus,
       });
       await importProductsFile({ bucket, file });
       expect(getFileStream).toHaveBeenCalledTimes(1);
@@ -33,20 +38,33 @@ describe('# @services/product::createImportFileParser', () => {
 
     describe('when uploadStore.getFileStream and uploadStore.moveFile resolves', () => {
       describe('- resolves to file stream', () => {
-        it('should log the cvs rows', async () => {
+        it('should send cvs rows', async () => {
           const getFileStream = async () =>
-            Readable.from('"field"\n"value1"\n"value2"\n');
-          const spyLog = jest.spyOn(console, 'log');
-          spyLog.mockReset();
+            Readable.from(
+              '"title","description","price","count"\n"title1","description1","1","1"\n"title2","description2","2","2"\n',
+            );
+          const send = jest.fn();
+          const eventBus = { send };
           const uploadStore = { getFileStream, moveFile: noop };
           const importProductsFile = createImportFileParser({
             config,
             uploadStore,
+            eventBus,
           });
           await importProductsFile({ bucket, file });
-          expect(spyLog).toHaveBeenCalledTimes(2);
-          expect(spyLog).toHaveBeenNthCalledWith(1, { field: 'value1' });
-          expect(spyLog).toHaveBeenNthCalledWith(2, { field: 'value2' });
+          expect(send).toHaveBeenCalledTimes(2);
+          expect(send).toHaveBeenNthCalledWith(1, 'catalogItemsQueue', {
+            title: 'title1',
+            description: 'description1',
+            price: 1,
+            count: 1,
+          });
+          expect(send).toHaveBeenNthCalledWith(2, 'catalogItemsQueue', {
+            title: 'title2',
+            description: 'description2',
+            price: 2,
+            count: 2,
+          });
         });
       });
     });
@@ -59,9 +77,11 @@ describe('# @services/product::createImportFileParser', () => {
         const spyLog = jest.spyOn(console, 'log');
         spyLog.mockReset();
         const uploadStore = { getFileStream, moveFile: noop };
+        const eventBus = { send: noop };
         const importProductsFile = createImportFileParser({
           config,
           uploadStore,
+          eventBus,
         });
         await expect(importProductsFile({ bucket, file })).rejects.toThrow({
           message:
@@ -71,24 +91,27 @@ describe('# @services/product::createImportFileParser', () => {
         });
       });
 
-      it('should not log anything', async () => {
-        const spyLog = jest.spyOn(console, 'log');
-        spyLog.mockReset();
+      it('should not send anything', async () => {
         const uploadStore = { getFileStream, moveFile: noop };
+        const send = jest.fn();
+        const eventBus = { send };
         const importProductsFile = createImportFileParser({
           config,
           uploadStore,
+          eventBus,
         });
         await importProductsFile({ bucket, file }).catch(noop);
-        expect(spyLog).not.toHaveBeenCalled();
+        expect(send).not.toHaveBeenCalled();
       });
 
       it('should not call uploadStore.moveFile', async () => {
         const moveFile = jest.fn();
         const uploadStore = { getFileStream, moveFile };
+        const eventBus = { send: noop };
         const importProductsFile = createImportFileParser({
           config,
           uploadStore,
+          eventBus,
         });
         await importProductsFile({ bucket, file }).catch(noop);
         expect(moveFile).not.toHaveBeenCalled();
@@ -101,13 +124,17 @@ describe('# @services/product::createImportFileParser', () => {
 
       it('should throw', async () => {
         const getFileStream = async () =>
-          Readable.from('"field"\n"value1"\n"value2"\n');
+          Readable.from(
+            '"title","description","price","count"\n"title1","description1","1","1"\n"title2","description2","2","2"\n',
+          );
         const spyLog = jest.spyOn(console, 'log');
         spyLog.mockReset();
         const uploadStore = { getFileStream, moveFile };
+        const eventBus = { send: noop };
         const importProductsFile = createImportFileParser({
           config,
           uploadStore,
+          eventBus,
         });
         await expect(importProductsFile({ bucket, file })).rejects.toThrow({
           message:
@@ -117,28 +144,35 @@ describe('# @services/product::createImportFileParser', () => {
         });
       });
 
-      it('should not log anything', async () => {
+      it('should send row', async () => {
         const getFileStream = async () =>
-          Readable.from('"field"\n"value1"\n"value2"\n');
-        const spyLog = jest.spyOn(console, 'log');
-        spyLog.mockReset();
+          Readable.from(
+            '"title","description","price","count"\n"title1","description1","1","1"\n"title2","description2","2","2"\n',
+          );
         const uploadStore = { getFileStream, moveFile };
+        const send = jest.fn();
+        const eventBus = { send };
         const importProductsFile = createImportFileParser({
           config,
           uploadStore,
+          eventBus,
         });
         await importProductsFile({ bucket, file }).catch(noop);
-        expect(spyLog).toHaveBeenCalledTimes(2);
+        expect(send).toHaveBeenCalledTimes(2);
       });
 
       it('should not call uploadStore.moveFile', async () => {
         const getFileStream = jest.fn(async () =>
-          Readable.from('"field"\n"value1"\n"value2"\n'),
+          Readable.from(
+            '"title","description","price","count"\n"title1","description1","1","1"\n"title2","description2","2","2"\n',
+          ),
         );
         const uploadStore = { getFileStream, moveFile };
+        const eventBus = { send: noop };
         const importProductsFile = createImportFileParser({
           config,
           uploadStore,
+          eventBus,
         });
         await importProductsFile({ bucket, file }).catch(noop);
         expect(getFileStream).toHaveBeenCalledTimes(1);
