@@ -1,0 +1,22 @@
+{
+  "name": "@lib/create-event-bus",
+  "description": "Create event bus",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "src",
+  "engines": {
+    "node": "16.17.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.209.0",
+    "@lib/errors": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "aws-sdk-client-mock": "^2.0.0",
+    "aws-sdk-client-mock-jest": "^2.0.0"
+  }
+}
