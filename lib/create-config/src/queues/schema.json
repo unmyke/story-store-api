@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "/schemas/config/queues.json",
+  "title": "Queues configuration",
+  "type": "object",
+  "properties": {
+    "catalogItems": {
+      "title": "Catalog items queue",
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": ["catalogItems"],
+  "additionalProperties": false
+}
