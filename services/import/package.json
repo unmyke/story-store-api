@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@lib/create-config": "0.1.0",
+    "@lib/create-event-bus": "0.1.0",
     "@lib/create-event-handlers": "0.1.0",
     "@lib/errors": "0.1.0",
     "@lib/create-upload-store": "0.1.0",
