@@ -22,6 +22,9 @@ provider:
             'Fn::Join':
               - ''
               - [!GetAtt UploadStoreS3Bucket.Arn, '/*']
+        - Effect: 'Allow'
+          Action: ['sqs:*']
+          Resource: '*'
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     UPLOAD_STORE_BUCKET: ${self:custom.uploadStore.BUCKET}
