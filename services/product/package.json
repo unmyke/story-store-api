@@ -14,6 +14,7 @@
     "@lib/create-config": "0.1.0",
     "@lib/create-db": "0.1.0",
     "@lib/create-event-handlers": "0.1.0",
+    "@lib/create-notifier": "0.1.0",
     "@lib/errors": "0.1.0",
     "@lib/aws-events": "0.1.0",
     "@lib/mock-data": "0.1.0",
