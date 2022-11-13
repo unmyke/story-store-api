@@ -59,16 +59,6 @@ functions:
             - prefix: ${self:custom.uploadStore.dirs.UPLOADED}
           existing: true
 
-  # import-test-handler:
-  #   handler: test.importTestHandler
-  #   events:
-  #     - s3:
-  #         bucket: ${self:custom.uploadStore.BUCKET}
-  #         event: 's3:ObjectCreated:*'
-  #         rules:
-  #           - prefix: ${self:custom.uploadStore.dirs.UPLOADED}
-  #         existing: true
-
 resources:
   - ${file(resources/LambdaExecutionRole.yml)}
   - ${file(resources/S3Resources.yml)}
